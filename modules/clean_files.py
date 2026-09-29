@@ -10,33 +10,20 @@ e matrizes separadas.
 import pandas as pd
 import os
 
-# Seleção da Pasta de Dados
-folder = os.path.join("data_process/1_data")
 
-# Pasta de destino dos arquivos limpos
-clean_arquives = os.path.join("data_process/2_clean_data")
-# Se a pasta de destino dos arquivos limpos não existir, cria a pasta
-if not os.path.exists("data_process/2_clean_data"):
-    os.makedirs("data_process/2_clean_data")
-
-# Pasta de destino dos arquivos de matrizes separadas
-matrix_arquives = os.path.join("data_process/3_matrix_data")
-# Se a pasta de destino dos arquivos de matrizes separadas não existir, cria a pasta
-if not os.path.exists("data_process/3_matrix_data"):
-    os.makedirs("data_process/3_matrix_data")
-
-'''
-Configuração de Colunas do Arquivo (Manual)
-'''
-Coluna_1 = 'A'
-Coluna_2 = 'B'
-Coluna_3 = 'C'
-Coluna_4 = 'D'
-Coluna_5 = 'E'
-Coluna_6 = 'F'
-Coluna_7 = 'G'
-Coluna_8 = 'H'
 def clean_files(folder, clean_arquives):
+    '''
+    Configuração de Colunas do Arquivo (Manual)
+    '''
+    Coluna_1 = 'A'
+    Coluna_2 = 'B'
+    Coluna_3 = 'C'
+    Coluna_4 = 'D'
+    Coluna_5 = 'E'
+    Coluna_6 = 'F'
+    Coluna_7 = 'G'
+    Coluna_8 = 'H'
+
     for file in os.listdir(folder):
         # Carregamento do arquivo
         df = pd.read_csv(os.path.join(folder, file))
@@ -53,8 +40,6 @@ def clean_files(folder, clean_arquives):
 
         # Salvando o arquivo com as colunas renomeadas
         df.to_csv(os.path.join(clean_arquives, file), index=False)
-
-clean_files(folder, clean_arquives)
 
 def separate_matrix(clean_arquives, matrix_arquives):
 
@@ -89,20 +74,18 @@ def separate_matrix(clean_arquives, matrix_arquives):
             matrix = matrix.drop(columns=['level_0', 'index'], errors='ignore')
     
             # Nome do arquivo de saída
-            nome_saida = file.replace(
+            name_exit = file.replace(
                 ".csv",
                 f"_matrix{numero_matrix}.csv"
             )
 
             # Caminho completo
-            caminho_saida = os.path.join(
+            path_exit = os.path.join(
                 matrix_arquives,
-                nome_saida
+                name_exit
             )
             # Excluir linha 8 vazia
             matrix = matrix.dropna(how='any', axis=0)
 
             # Salvar
-            matrix.to_csv(caminho_saida,index=True)
-
-separate_matrix(clean_arquives, matrix_arquives)
+            matrix.to_csv(path_exit,index=True)
