@@ -3,11 +3,17 @@ import pandas as pd
 
 
 # Carregar as matrizes
-matrix_arquives = "3_matrix_data"
+matrix_arquives = os.path.join("data_process/3_matrix_data")
+# Se a pasta de destino dos arquivos de matrizes separadas não existir, cria a pasta
+if not os.path.exists(matrix_arquives):
+    os.makedirs(matrix_arquives)
 
 # Salvar as matrizes selecionadas
-selected_matrix = "4_selected_matrix"
-
+selected_matrix = os.path.join("data_process/4_selected_matrix")
+# Se a pasta de destino dos arquivos de matrizes selecionadas não existir, cria a pasta
+if not os.path.exists(selected_matrix):
+    os.makedirs(selected_matrix)
+       
 '''
 # CONFIGURAÇÃO DAS COLUNAS
 '''

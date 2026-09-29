@@ -7,13 +7,14 @@ import pandas as pd
 import os
 
 # Seleção da Pasta de Dados
-folder = os.path.join("1_data")
+folder = os.path.join("data_process/1_data")
 
 # Pasta de destino dos arquivos limpos
-clean_arquives = os.path.join("2_clean_data")
+clean_arquives = os.path.join("data_process/2_clean_data")
 
-# Pasta de destino dos arquivos de matrizes separadas
-matrix_arquives = os.path.join("3_matrix_data")
+# Se a pasta de destino dos arquivos limpos não existir, cria a pasta
+if not os.path.exists("data_process/2_clean_data"):
+    os.makedirs("data_process/2_clean_data")
 
 '''
 Configuração de Colunas do Arquivo (Manual)
