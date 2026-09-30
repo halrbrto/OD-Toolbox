@@ -1,14 +1,15 @@
 '''
-Descrição: Renomear as colunas de cada matriz, 
+Descrição: Renomear as colunas de cada matriz,
 de acordo com a configuração definida.
 '''
 import os
 import pandas as pd
+from .config_utils import load_config
 
 def rename_matrix(selected_matrix, renamed_matrix):
     os.makedirs(renamed_matrix, exist_ok=True)
 
-    col_names = ['100 uL', '200 uL', '300 uL', '400 uL', '500 uL']
+    col_names = load_config('col_names')
 
     for file in os.listdir(selected_matrix):
         if not file.endswith(".csv"):
@@ -23,5 +24,4 @@ def rename_matrix(selected_matrix, renamed_matrix):
 
         df.columns = col_names
 
-        # Dentro do loop: salva um arquivo por iteração
         df.to_csv(os.path.join(renamed_matrix, file), index=False, decimal=',')

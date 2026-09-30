@@ -6,3 +6,4 @@ from modules.select_col_lin import select_lin_col
 from modules.rename_matrix import rename_matrix
 # 3. Separação de controle negativo (por definição: primeira linha)
 from modules.separate_control import separate_control
+
