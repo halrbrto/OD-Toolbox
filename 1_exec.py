@@ -4,8 +4,8 @@ seleção, renomeação, separação de controles e empilhamento por tag).
 '''
 import os
 import pandas as pd
-from mod_process import (clean_files, separate_matrix, select_lin_col,
-                     rename_matrix, separate_control, stack_lines)
+from mod_process import (clean_files, rename_matrix, separate_control, stack_lines)
+from modules.mod_process import select_lin_col, separate_matrix
 
 BASE = "data_process"
 
@@ -37,9 +37,3 @@ separate_control(paths["renamed"], paths["negative_control"], paths["without_con
 # Empilha as linhas dos arquivos {tag}_matrix{n}.csv de mesma tag
 stack_lines(paths["negative_control"], paths["without_control"],
             paths["stack_control"], paths["stack_matrix"])
-
-# Analisar controle Negativo (Métricas Estatísticas e Box-Plot)
-
-# Teste de placas:
-# Analisar variação de replicata (Gráfico de linhas Vs. Replicatas)
-# Mostrar variação de cada placa
