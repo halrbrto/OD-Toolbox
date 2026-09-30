@@ -6,5 +6,5 @@ The project is in its early stages and will include methods for plotting growth 
 
 Observation: The readings originate from an M5 SpectraMax spectrophotometer; therefore, the initial automated data cleaning is tailored to the output of that instrument's software.
 
-I will present a simple protocol here in the future :)
+I will present a simple protocol here in the future :) (or not)
 
