@@ -1,9 +1,11 @@
 '''
-Descrição:
+Descrição: Pipeline de processamento das matrizes (limpeza, separação,
+seleção, renomeação, separação de controles e empilhamento por tag).
 '''
 import os
 import pandas as pd
-from modules import clean_files, separate_matrix, select_lin_col, rename_matrix, separate_control
+from mod_process import (clean_files, separate_matrix, select_lin_col,
+                     rename_matrix, separate_control, stack_lines)
 
 BASE = "data_process"
 
@@ -16,6 +18,8 @@ stages = {
     "renamed":                 "5_renamed_matrix",
     "negative_control":        "6_negative_control_matrix",
     "without_control":         "7_matrix_without_control",
+    "stack_control":           "8_stack_negative_control",
+    "stack_matrix":            "9_stack_matrix_without_control",
 }
 
 # Monta os caminhos e cria as pastas que não existirem
@@ -30,8 +34,12 @@ select_lin_col(paths["matrix"], paths["selected"])
 rename_matrix(paths["selected"], paths["renamed"])
 separate_control(paths["renamed"], paths["negative_control"], paths["without_control"])
 
+# Empilha as linhas dos arquivos {tag}_matrix{n}.csv de mesma tag
+stack_lines(paths["negative_control"], paths["without_control"],
+            paths["stack_control"], paths["stack_matrix"])
+
 # Analisar controle Negativo (Métricas Estatísticas e Box-Plot)
 
 # Teste de placas:
 # Analisar variação de replicata (Gráfico de linhas Vs. Replicatas)
-# Mostrar variação de cada placa 
+# Mostrar variação de cada placa
