@@ -19,6 +19,8 @@ stages1 = {
     "renamed_matrix":          "5_renamed_matrix",
     "negative_control_matrix": "6_negative_control_matrix",
     "matrix_without_control":  "7_matrix_without_control",
+    "stack_control":           "8_stack_negative_control",
+    "stack_matrix":            "9_stack_matrix_without_control",
 }
 
 stages2 = {
@@ -45,6 +47,8 @@ selected_matrix         = paths1["selected_matrix"]
 renamed_matrix          = paths1["renamed_matrix"]
 negative_control_matrix = paths1["negative_control_matrix"]
 matrix_without_control  = paths1["matrix_without_control"]
+stack_control           = paths1["stack_control"]
+stack_matrix            = paths1["stack_matrix"]
 
 # stage2
 metrics_control = paths2["metrics_control"]
@@ -64,6 +68,8 @@ delete_data_folders(selected_matrix)
 delete_data_folders(renamed_matrix)
 delete_data_folders(negative_control_matrix)
 delete_data_folders(matrix_without_control)
+delete_data_folders(stack_control)
+delete_data_folders(stack_matrix)
 # stage2
 delete_data_folders(metrics_control)
 delete_data_folders(metrics_matrix)
