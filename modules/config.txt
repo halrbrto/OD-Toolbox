@@ -1,0 +1,30 @@
+# Configurações do Processamento
+
+# Seleção de Colunas de Interesse (Booleano)
+[col_select]
+False   # Col_1
+True    # Col_2
+True    # Col_3
+True    # Col_4
+True    # Col_5
+True    # Col_6
+False   # Col_7
+False   # Col_8
+False   # Col_9
+
+# Seleção de Linhas de Interesse (Booleano)
+[lin_select]
+True    # Lin_1
+True    # Lin_2
+True    # Lin_3
+False   # Lin_4
+False   # Lin_5
+False   # Lin_6
+
+# Nome das colunas da Placa
+[col_names]
+100 uL
+200 uL
+300 uL
+400 uL
+500 uL

@@ -4,7 +4,7 @@ seleção, renomeação, separação de controles e empilhamento por tag).
 '''
 import os
 import pandas as pd
-from mod_process import (clean_files, rename_matrix, separate_control, stack_lines)
+from modules.mod_process import (clean_files, rename_matrix, separate_control, stack_lines)
 from modules.mod_process import select_lin_col, separate_matrix
 
 BASE = "data_process"
