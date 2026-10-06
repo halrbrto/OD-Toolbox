@@ -43,49 +43,24 @@ def clean_files(folder, clean_arquives):
 
 def separate_matrix(clean_arquives, matrix_arquives):
 
-    # Percorrer os arquivos da pasta
     for file in os.listdir(clean_arquives):
 
-        # Processar somente arquivos CSV
+        # Verificar se o arquivo é um CSV
         if not file.endswith(".csv"):
             continue
 
-        # Carregamento do arquivo
-        caminho = os.path.join(clean_arquives, file)
-        df = pd.read_csv(caminho)
-
-        # Resetar o índice
-        df = df.reset_index(drop=False)
+        df = pd.read_csv(os.path.join(clean_arquives, file))
 
         # Separar em matrizes de 6 linhas
         for i in range(0, len(df), 6):
-
-            # Criar uma matriz 6 x 8
+            # Criar uma matriz individual com 6 linhas
             matrix = df.iloc[i:i+6, :]
-
-            # Número da matriz
             numero_matrix = i // 6 + 1
 
-            # Resetar o índice
-            matrix = matrix.reset_index(drop=False)
-
-
-            # Deletar colunas level_0, index
-            matrix = matrix.drop(columns=['level_0', 'index'], errors='ignore')
-    
-            # Nome do arquivo de saída
-            name_exit = file.replace(
-                ".csv",
-                f"_matrix{numero_matrix}.csv"
-            )
-
-            # Caminho completo
-            path_exit = os.path.join(
-                matrix_arquives,
-                name_exit
-            )
-            # Excluir linha 8 vazia
+            # Excluir linhas vazias
             matrix = matrix.dropna(how='any', axis=0)
 
-            # Salvar
-            matrix.to_csv(path_exit,index=True)
+            name_exit = file.replace(".csv", f"_matrix{numero_matrix}.csv")
+            path_exit = os.path.join(matrix_arquives, name_exit)
+
+            matrix.to_csv(path_exit, index=False)

@@ -33,5 +33,5 @@ def select_lin_col(matrix_arquives, selected_matrix):
 
         # Salvar
         path_save = os.path.join(selected_matrix, file)
-        df.to_csv(path_save, index=False)
+        df.to_csv(path_save, index=False) 
         print(f"Processado: {file}")
