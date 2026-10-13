@@ -26,6 +26,7 @@ stages1 = {
 stages2 = {
     "metrics_control": "1_metrics_negative_control",
     "metrics_matrix":  "2_metrics_matrix",
+    "remove_negative": "3_remove_negative_control",
     # "boxplot_control": "3_boxplot_negative_control",  
     # "plate_test":      "4_plate_test",
 }
@@ -53,6 +54,7 @@ stack_matrix            = paths1["stack_matrix"]
 # stage2
 metrics_control = paths2["metrics_control"]
 metrics_matrix = paths2["metrics_matrix"]
+remove_negative = paths2["remove_negative"]
 
 # Deletar todos os arquivos de cada pasta de destino
 def delete_data_folders(folder):
@@ -73,3 +75,4 @@ delete_data_folders(stack_matrix)
 # stage2
 delete_data_folders(metrics_control)
 delete_data_folders(metrics_matrix)
+delete_data_folders(remove_negative)

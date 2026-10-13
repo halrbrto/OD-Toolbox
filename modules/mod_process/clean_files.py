@@ -11,6 +11,22 @@ import pandas as pd
 import os
 
 
+def read_any_csv(path, **kwargs):
+    '''
+    Lê CSV exportado por diferentes programas:
+    - Google Drive: UTF-8, separado por vírgula
+    - LibreOffice (Texto Unicode): UTF-16, separado por tabulação
+    '''
+    # Detecta UTF-16 pelo BOM; senão, assume UTF-8
+    with open(path, 'rb') as f:
+        bom = f.read(2)
+    encoding = 'utf-16' if bom in (b'\xff\xfe', b'\xfe\xff') else 'utf-8-sig'
+
+    # sep=None + engine='python' detecta vírgula ou tabulação sozinho
+    return pd.read_csv(path, encoding=encoding, sep=None,
+                       engine='python', **kwargs)
+
+
 def clean_files(folder, clean_arquives):
     '''
     Configuração de Colunas do Arquivo (Manual)
@@ -25,8 +41,8 @@ def clean_files(folder, clean_arquives):
     Coluna_8 = 'H'
 
     for file in os.listdir(folder):
-        # Carregamento do arquivo
-        df = pd.read_csv(os.path.join(folder, file))
+        # Carregamento do arquivo (aceita UTF-8/vírgula e UTF-16/tabulação)
+        df = read_any_csv(os.path.join(folder, file))
         # Deletar as 3 primeiras linhas do arquivo
         df = df.iloc[2:]
         # Deletar as duas primeiras colunas do arquivo
@@ -38,7 +54,7 @@ def clean_files(folder, clean_arquives):
         # Renomeando as colunas
         df.columns = [Coluna_1, Coluna_2, Coluna_3, Coluna_4, Coluna_5, Coluna_6, Coluna_7, Coluna_8]
 
-        # Salvando o arquivo com as colunas renomeadas
+        # Salvando o arquivo com as colunas renomeadas (sempre UTF-8, vírgula)
         df.to_csv(os.path.join(clean_arquives, file), index=False)
 
 def separate_matrix(clean_arquives, matrix_arquives):
@@ -49,6 +65,7 @@ def separate_matrix(clean_arquives, matrix_arquives):
         if not file.endswith(".csv"):
             continue
 
+        # Aqui pd.read_csv basta: são arquivos gerados pelo clean_files
         df = pd.read_csv(os.path.join(clean_arquives, file))
 
         # Separar em matrizes de 6 linhas

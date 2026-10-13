@@ -4,6 +4,7 @@ Entrada: pastas 8 e 9 de data_process. Saída: pastas dentro de data_analysis.
 '''
 import os
 from modules.mod_analysis import calc_metrics
+from modules.mod_analysis import removal_control, load_folder
 
 BASE_IN = "data_process"
 BASE_OUT = "data_analysis"
@@ -18,6 +19,7 @@ inputs = {
 stages = {
     "metrics_control": "1_metrics_negative_control",
     "metrics_matrix":  "2_metrics_matrix",
+    "remove_negative": "3_remove_negative_control",
     # "boxplot_control": "3_boxplot_negative_control",
     # "plate_test":      "4_plate_test",
 }
@@ -38,6 +40,13 @@ for path in outputs.values():
 # Métricas por coluna (média, desvio padrão, variância, CV)
 calc_metrics(inputs["stack_control"], outputs["metrics_control"])
 calc_metrics(inputs["stack_matrix"],  outputs["metrics_matrix"])
+
+# Remover valores do controle negativo da matriz (coluna[matriz] - coluna[controle])
+removal_control(
+    control=load_folder(outputs["metrics_control"]),
+    matrix=load_folder(outputs["metrics_matrix"]),
+    output_folder=outputs["remove_negative"]
+)
 
 # Analisar controle Negativo (Box-Plot)
 
